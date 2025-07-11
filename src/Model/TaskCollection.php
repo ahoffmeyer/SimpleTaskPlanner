@@ -9,7 +9,7 @@ class TaskCollection
 
     public function add(Task $task): void
     {
-        $this->tasks[] = $task ?? [];
+        $this->tasks[] = $task;
     }
 
     public function getTaskById(string $id): ?Task

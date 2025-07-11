@@ -7,10 +7,8 @@ use AndreasHoffmeyer\SimpleTaskPlanner\Model\Task;
 class TaskFactory
 {
 
-    public static function create(array $post, bool $update = false): Task
+    public static function create(array $post, ?string $id): Task
     {
-        $id = $_GET['id'] ?? uniqid();
-
         $task = new Task();
         $task->setId($id);
         $task->setTitle($post['title']);

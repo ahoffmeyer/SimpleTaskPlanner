@@ -50,20 +50,4 @@ $response = match($_SERVER['REQUEST_METHOD']) {
     default => throw new \Exception('Unsupported HTTP method.'),
 };
 
-$tasksArray = [];
-
-$tasks = $_SESSION['tasks'] ;
-
-// 2. Durchlaufe deine Collection.
-foreach ($tasks->getTasks() as $taskEntity) {
-    // 3. Wandle jede einzelne Entity in ein einfaches assoziatives Array um.
-    //    Füge dieses neue Array dem Haupt-Array hinzu.
-    $tasksArray[] = [
-        'id' => $taskEntity->getId(), // Annahme: es gibt eine Methode getId()
-        'title' => $taskEntity->getTitle(),
-        'description' => $taskEntity->getDescription(),
-        'completed' => $taskEntity->isCompleted()
-    ];
-}
-
-echo json_encode($tasksArray);
+echo json_encode($response->toArray());

@@ -29,7 +29,9 @@ class TaskController extends AbstractTaskController
         try {
             $this->validator->validate($request);
 
-            $task = TaskFactory::create($request);
+            $id = $_GET['id'] ?? uniqid();
+
+            $task = TaskFactory::create($request, $id);
 
             $this->taskRepository->addTaskInSession($task);
 
