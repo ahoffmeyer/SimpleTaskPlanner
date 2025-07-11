@@ -10,7 +10,7 @@ class TaskFactory
     public static function create(array $post, ?string $id = null): Task
     {
         $task = new Task();
-        $task->setId($id ?? uniqid());
+        $task->setId(uniqid());
         $task->setTitle($post['title']);
         $task->setDescription($post['description']);
         $task->setCompleted(false);
