@@ -28,9 +28,11 @@ class TaskRepository
 
     public function addTaskInSession(Task $task): void
     {
-        $this->tasks->add($task);
+        $tasks = $_SESSION['tasks'] ?? new TaskCollection();
 
-        $this->storeInSession($this->tasks);
+        $tasks->add($task);
+
+        $this->storeInSession($tasks);
     }
 
     public function removeTaskFromSession(string $id): void
