@@ -72,16 +72,4 @@ class Task
     {
         $this->updatedAt = $updatedAt;
     }
-
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'completed' => $this->completed,
-            'createdAt' => $this->createdAt->getTimestamp(),
-            'updatedAt' => $this->updatedAt->getTimestamp(),
-        ];
-    }
 }
