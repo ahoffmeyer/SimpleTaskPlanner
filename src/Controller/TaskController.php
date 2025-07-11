@@ -4,7 +4,6 @@ namespace AndreasHoffmeyer\SimpleTaskPlanner\Controller;
 
 use AndreasHoffmeyer\SimpleTaskPlanner\Exception\ControllerException;
 use AndreasHoffmeyer\SimpleTaskPlanner\Factory\TaskFactory;
-use AndreasHoffmeyer\SimpleTaskPlanner\Model\Task;
 use AndreasHoffmeyer\SimpleTaskPlanner\Model\TaskCollection;
 use AndreasHoffmeyer\SimpleTaskPlanner\Repository\TaskRepository;
 use AndreasHoffmeyer\SimpleTaskPlanner\Validator\TaskValidator;
@@ -44,21 +43,7 @@ class TaskController extends AbstractTaskController
         try {
             $this->validator->validate($request);
 
-            $newTaskCollection = new TaskCollection();
-
-            /** @var Task $task */
-            foreach ($this->tasks->getTasks() as $task) {
-                if ($task->getId() === $_GET['id']) {
-                    $task->setTitle($request['title'] ?? $task->getTitle());
-                    $task->setDescription($request['description'] ?? $task->getDescription());
-                    $task->setCompleted($request['completed'] ?? $task->isCompleted());
-                    $task->setUpdatedAt(new \DateTimeImmutable());
-                }
-
-                $newTaskCollection->add($task);
-            }
-
-            $this->taskRepository->storeInSession($newTaskCollection);
+            $this->taskRepository->updateTaskInSession($this->tasks, $_GET['id'], $request);
 
             return $this->get();
         } catch (ControllerException $exception) {

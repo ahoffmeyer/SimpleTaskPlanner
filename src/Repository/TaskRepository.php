@@ -35,6 +35,25 @@ class TaskRepository
         $this->storeInSession($tasks);
     }
 
+    public function updateTaskInSession(TaskCollection $taskCollection, string $id, array $data): void
+    {
+        $newTaskCollection = new TaskCollection();
+
+        /** @var Task $task */
+        foreach ($taskCollection->getTasks() as $task) {
+            if ($task->getId() === $id) {
+                $task->setTitle($data['title'] ?? $task->getTitle());
+                $task->setDescription($data['description'] ?? $task->getDescription());
+                $task->setCompleted($data['completed'] ?? $task->isCompleted());
+                $task->setUpdatedAt(new \DateTimeImmutable());
+            }
+
+            $newTaskCollection->add($task);
+        }
+
+        $this->storeInSession($newTaskCollection);
+    }
+
     public function removeTaskFromSession(string $id): void
     {
         $tasks = $_SESSION['tasks'] ?? new TaskCollection();

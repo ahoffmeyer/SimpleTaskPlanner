@@ -12,16 +12,6 @@ class TaskCollection
         $this->tasks[] = $task;
     }
 
-    public function getTaskById(string $id): ?Task
-    {
-        foreach ($this->tasks as $task) {
-            if ($task->getId() === $id) {
-                return $task;
-            }
-        }
-        return null;
-    }
-
     public function getTasks(): array
     {
         return $this->tasks;
@@ -31,12 +21,9 @@ class TaskCollection
     {
         $tasksArray = [];
 
-// 2. Durchlaufe deine Collection.
         foreach ($this->tasks as $taskEntity) {
-            // 3. Wandle jede einzelne Entity in ein einfaches assoziatives Array um.
-            //    Füge dieses neue Array dem Haupt-Array hinzu.
             $tasksArray[] = [
-                'id' => $taskEntity->getId(), // Annahme: es gibt eine Methode getId()
+                'id' => $taskEntity->getId(),
                 'title' => $taskEntity->getTitle(),
                 'description' => $taskEntity->getDescription(),
                 'completed' => $taskEntity->isCompleted()
@@ -46,11 +33,6 @@ class TaskCollection
         return $tasksArray;
     }
 
-    public function json(): string
-    {
-        return json_encode($this->tasks);
-    }
-
     public function remove(string $id): void
     {
         foreach ($this->tasks as $key => $task) {
@@ -58,11 +40,6 @@ class TaskCollection
                 unset($this->tasks[$key]);
             }
         }
-    }
-
-    public function count(): int
-    {
-        return count($this->tasks);
     }
     
 }
