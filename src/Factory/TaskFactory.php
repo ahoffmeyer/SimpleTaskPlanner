@@ -7,12 +7,12 @@ use AndreasHoffmeyer\SimpleTaskPlanner\Model\Task;
 class TaskFactory
 {
 
-    public static function create(array $post, ?string $id = null): Task
+    public static function create(array $data, ?string $id = null): Task
     {
         $task = new Task();
         $task->setId(uniqid());
-        $task->setTitle($post['title']);
-        $task->setDescription($post['description']);
+        $task->setTitle($data['title']);
+        $task->setDescription($data['description']);
         $task->setCompleted(false);
         $task->setCreatedAt(new \DateTimeImmutable());
 
